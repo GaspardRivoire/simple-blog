@@ -1,0 +1,24 @@
+<!DOCTYPE html >
+<html>
+  <head>
+      <title>Création d'articles</title> 
+  </head>
+
+  style
+      include style.css
+
+  <body>
+    <h1> Saisir les champs pour créer l'article</h1>
+
+    <form id="articleCreation" action="/create-article" method="post">
+        <h5>Nom de l'article </h5> <input name="nom">
+        <h5>Auteur de l'article</h5> <input name="auteur">
+        <h5>Date de rédaction</h5> <input name="date">
+        <h5>Résumé</h5> <input name="resume">
+        <h5>Contenu</h5> <input name="contenu">
+        <br><br>
+        <button type="submit">Valider</button>
+    </form>
+
+  </body>
+</html>

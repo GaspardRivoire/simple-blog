@@ -1,11 +1,12 @@
 var express = require("express");
-var MongoClient = require("mongodb");
+var MongoClient = require("mongodb").MongoClient;
 var bodyParser = require('body-parser')
-var cons = require('consolidate');
+var cons = require('consolidate')
+var script = require('./script.js')
 
 var app = express();
-var url = process.env.URL || "REPLACEME";
-var dbName = process.env.DBNAME || "REPLACEME";
+var url = process.env.URL || "mongodb://localhost:27017";
+var dbName = process.env.DBNAME || "blogdb";
 var port = process.env.PORT || 8000;
 
 app.engine('html', cons.pug);
@@ -14,11 +15,14 @@ app.set('views',  __dirname +  '/views')
 
 var routes = require("./routes");
 
+app.use(bodyParser());
 
 MongoClient.connect(url, function(err, client) {
   if(err) throw err;
 
   routes(app);
+
+  script.generate(client);
   
   app.client = client;
   app.db = client.db(dbName);
